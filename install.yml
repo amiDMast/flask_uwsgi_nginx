@@ -1,0 +1,11 @@
+---
+- name: flask uswgi nginx systemd
+  hosts: all
+  become: yes
+  become_method: sudo
+
+
+  roles:
+  - python
+  - nginx
+  - systemd

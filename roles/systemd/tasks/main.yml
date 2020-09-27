@@ -1,0 +1,13 @@
+---
+  - name: template systemd service config
+    template:
+      src: .service
+      dest: /etc/systemd/system/flask.service
+
+  - name: template app.ini config
+    template:
+      src: app.ini
+      dest: /home/ubuntu/flask/app.ini
+
+  - name: start systemd app service
+    systemd: name=flask.service state=restarted enabled=yes

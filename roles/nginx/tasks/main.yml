@@ -1,0 +1,36 @@
+---
+  - name: install packages
+    apt:
+      name:
+            - nginx
+            - apache2-utils
+      state: present
+      update_cache: yes
+   
+  - name: copy nginx vhost config
+    template:
+      src: .nginx
+      dest: /etc/nginx/sites-available/flask
+
+  - name: copy nginx httpauth config
+    template:
+      src: .httpauth
+      dest: /etc/nginx/.httpauth.conf
+
+  - name: copy nginx allow_ip config
+    template:
+      src: allow_ip.conf
+      dest: /etc/nginx/allow_ip.conf
+
+  - name: remove default nginx site config
+    file: path=/etc/nginx/sites-enabled/default state=absent
+
+  - name: enable nginx site
+    file:
+      src: /etc/nginx/sites-available/flask
+      dest: /etc/nginx/sites-enabled/default
+      state: link
+      force: yes
+
+  - name: restart nginx
+    systemd: name=nginx state=restarted enabled=yes

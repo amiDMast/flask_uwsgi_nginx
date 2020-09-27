@@ -1,0 +1,33 @@
+---
+  - name: install packages
+    apt:
+      name: 
+       - python3-pip
+       - python3-dev
+       - git
+       - python3-venv
+      state: present
+      update_cache: yes
+
+  - name: clone repo
+    git:
+      repo: https://github.com/amiDMast/flask_uwsgi_nginx.git
+      dest: /home/ubuntu/flask
+      force: yes
+      update: yes
+
+  - name: copy config.py
+    template:
+      src: config.py
+      dest: /home/ubuntu/flask/config.py
+
+  - name: install modules in a virtualenv
+    pip:
+      requirements: /home/ubuntu/flask/requirements.txt
+      virtualenv: /home/ubuntu/flask/env
+      virtualenv_command: 'python3 -m venv'
+
+  - name: Create directory
+    file:
+     path: /home/ubuntu/flask/{{ FLASK_LOG_TO_DIR }}/
+     state: directory
