@@ -15,19 +15,26 @@
   - name: copy nginx httpauth config
     template:
       src: .httpauth
+<<<<<<< HEAD
       dest: /etc/nginx/httpauth.conf
+=======
+      dest: /etc/nginx/.httpauth.conf
+>>>>>>> a25e434429f8e75157aa6ee1fd6a2d8b47239c55
 
   - name: copy nginx allow_ip config
     template:
       src: allow_ip.conf
       dest: /etc/nginx/allow_ip.conf
 
+<<<<<<< HEAD
   - name: copy nginx .htpasswd
     template:
       src: .htpasswd
       dest: /etc/nginx/.htpasswd
 
 
+=======
+>>>>>>> a25e434429f8e75157aa6ee1fd6a2d8b47239c55
   - name: remove default nginx site config
     file: path=/etc/nginx/sites-enabled/default state=absent
 
@@ -39,4 +46,8 @@
       force: yes
 
   - name: restart nginx
+<<<<<<< HEAD
     systemd: name=nginx state=restarted enabled=yes
+=======
+    systemd: name=nginx state=restarted enabled=yes
+>>>>>>> a25e434429f8e75157aa6ee1fd6a2d8b47239c55
