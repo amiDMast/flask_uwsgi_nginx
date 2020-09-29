@@ -15,12 +15,18 @@
   - name: copy nginx httpauth config
     template:
       src: .httpauth
-      dest: /etc/nginx/.httpauth.conf
+      dest: /etc/nginx/httpauth.conf
 
   - name: copy nginx allow_ip config
     template:
       src: allow_ip.conf
       dest: /etc/nginx/allow_ip.conf
+
+  - name: copy nginx .htpasswd
+    template:
+      src: .htpasswd
+      dest: /etc/nginx/.htpasswd
+
 
   - name: remove default nginx site config
     file: path=/etc/nginx/sites-enabled/default state=absent
